@@ -1,139 +1,7 @@
----
-layout: post
-title:  "Final Project| Automated Plant Watering System"
-permalink: /12/
----
-
-by Adwoa Asare
-
- August 8th 2019
-
-### Materials
-
-- Water Pump (5v)
-- DHT22
-- MOSFET
-- Non-Corrosive Soil Moisture Sensor
-- Silicone Sealant
-- Hot Glue/ Hot Glue Gun
-- Acrylic Cement
-- Laser Cutter
-- Basic Hand/ Electrical Tools
-- Scotch Tape
-- Disposable Gloves (for when you are gluing/ sealing)
-- (2) LED strips
-- 22 Gauge Wire
-- 1/4 inch tubing
-- Super Glue
-- Arduino Nano (an Uno would also work)
-
-### The Process
-
-<img src="solderedPump.JPG" alt="solderedPump">
-
-**WaterPump:**
-1. Solder the **water pump**. Connect the red wire to the terminal with the red dot next to it.
-2. Apply heat-shrink around the connections between the pump and the wiring.
-3. The pump needs to have its positive terminal connected to the 5V output on the arduino and its negative terminal connected to drain on the transistor.
-4. Heat Shrink the wire ends
-5. The ground of the transistor should be connected to the _digital 3_ pin on the arduino and the source should be connected to the ground of the arduino
-
-**More details for how to use a FET Transistor can be found [here](https://roberthart56.github.io/SCFAB/SC_lab/Output_Devices/FET/index.html)**
-
-**DHT22:**
-
-<img src="tempSensor.JPG" alt="tempSensor">
-
-The DHTXX series of sensors are used to measure temperature and humidity.  They generally have four pins, and the third one is not used. 
-
-1. Connect the 1st pin to _5 volts_, the second pin to arduino _digital pin 2_, and the fourth pin goes to _ground_ (as seen in the above picture)
-2. Tape the senor down to a surface to make it easier to solder
-3. Apply Heat Shrink
-
-
-**Soil Moisture Sensor**
-
-<img src="soilSensorSetup.JPG" alt="soilSensorSetup">
-
-1. Cut off the plug in end of the wires and strip them
-2. Sauter red to 5 volts, black to ground, and blue to analog 0
-3. The sensor [needs to be calibrated ](https://wiki.dfrobot.com/Capacitive_Soil_Moisture_Sensor_SKU_SEN0193)**
-
-
-**Water Level Sensor**
-
-I didn't want the pump to run if the water tank was empty so I used capacitive measurement to determine whether or not there was water in the tank.
-
-I cut two small rectangular pieces of copper tape and soldered a wire to each. I taped them to the bottom outside corner of the water tank. One wire went to _analog pin 4_ and the other to _digital pin 4_.
-
-**LEDs**
-
-
-The LED strips are labeled so it should be pretty obvious what to sauter... 
-Attach one of them to digital pin 6 and one to _digital pin 7_.
-
-**Laser Cutting (... and some drilling)**
-
-Here are my **dxf** files:
-
-- cut two of these <a href='normWall.dxf' download>Click to download my dxf file</a>
-- one of these <a href='pumpHolder.dxf' download>Click to download my dxf file</a> (then drill some holes to feed wires through and to ziptie your arduino Nano to)
-- two of these <a href='wallBottom.dxf' download>Click to download my dxf file</a> (drill a 1/4 inhole to put your tubing in one of these)
-- one of these <a href='wall1.dxf' download>Click to download my dxf file</a>
-- one of these <a href='wall1.dxf' download>Click to download my dxf file</a>
-- one of these <a href='wall2.dxf' download>Click to download my dxf file</a>
-- one of these <a href='wall3.dxf' download>Click to download my dxf file</a>
-- one of these <a href='wall4.dxf' download>Click to download my dxf file</a>
-
-
-_I set the laser cutter to 60% power and speed 7_
-
-<img src="acrylicConstruction.JPG" alt="acrylicConstruction">
-
-Pump holder:
-<img src="pumpHoldAcrylic.JPG" alt="pumpHoldAcrylic">
-
-
-**Gluing/ Sealing**
-
-You need acrylic cement to weld the pieces of acrylic together
-<img src="acrylicCement.JPG" alt="acrylicCement">
-<img src="sealing.JPG" alt="sealing">
-
-
-1. Set the box up without gluing it first to get a feel of what is a good order to put the pieces together
-2. Label the outside of the pieces with tape to make sure you put it together in the correct orientation
-3. Using a paint brush (or in my case a cotton swab attached to a clothespin) apply acrylic cement to both of the surfaces you want to connect
-4. Put the two glued pieces together, then repeat until it's done.
-
-**Wiring/ Tubing**
-
-I secured the tubing to the hole at the bottom of the tank using hot glue which worked surprisingly well. Then I attached that to the pump in and another tube from the pump out to the soil container. I also poked holed near the watering opening of the tube so the water woulb be better dispersed through the soil.
-
-To keep sil from getting in the tubing i put a piece of colth over it and duct taped it to the end of the tube at the opening.
-
-I did all the wiring on the outside using strips copper tape and using 22 gauge wire to make bridges. I used electrical tape over my soldering work to keep it from pulling. The wiring is fun because you can get creative with how you arrange the wires as long as you pat attention to the connections!
-
-om the imside of the bottom of the pot I put 2 copper strips, one for 5 volts and one for ground.
-
-
-### Difficulties In the Process
-
-- When sealing the acrylic tank to make it water proof I got a lot of leaks. It was very hard to get all of them and I eventually had to use a straw that I stuck through the water refill opening to apply sealant to the inside of the tank. I think it would probably be best to seal as much of it as possible before closing it!
-- When the wires pull on their connections it starts to tear and pull up the copper tape. My solution to this was putting electrical tape over the connections
--It would probably be best to put a coat of acrylic or epoxy over the outside of the finished product
--Never trust an Arduino Nano that was soldered by someone else... ever 
-
-
-### The Code
-
-<a href='AutoPlantCare.ino' download>Click to download my ino (arduino) file</a>.
-
-```
 
 // REQUIRES the following Arduino libraries: (Tools>>Manage Libraries)
 // - DHT Sensor Library: https://github.com/adafruit/DHT-sensor-library
-// - Adafruit Unified Sensor Lib: https://github.com/adafruit/Adafruit_Sensor//++++++++++++++++++++ ANALOG AND DIGITAL IDS +
+// - Adafruit Unified Sensor Lib: https://github.com/adafruit/Adafruit_Sensor//++++++++++++++++++++ ANALOG AND DIGITAL IDS ++++++
 int tempSensor = 2;//DigitalPin_2
 int waterPump = 3;//DigitalPin_3
 
@@ -203,7 +71,7 @@ void loop() {
   Serial.println();
   Serial.print("Water Level: "); Serial.print(waterL);
   Serial.println();
-  if (waterL < 10)
+  if (waterL < 0)
     empty = true;
   else
     empty = false;
@@ -333,5 +201,3 @@ void tempHumidityRead() {
 
 
 }
-```
-
